@@ -15,7 +15,6 @@ html, body {
   overflow: hidden;
 }
 
-/* Layout global */
 #app {
   display: flex;
   flex-direction: column;
@@ -30,7 +29,6 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-shrink: 0;
 }
 
 #navbar button {
@@ -50,14 +48,12 @@ html, body {
 /* Zone image */
 #content {
   flex: 1;
-  position: relative;
 }
 
-/* Images */
 #content img {
   width: 100%;
   height: 100%;
-  object-fit: cover;      /* remplit tout l’espace disponible */
+  object-fit: cover;
   object-position: center;
   display: none;
 }
@@ -75,9 +71,9 @@ html, body {
   </div>
 
   <div id="content">
-    <img id="tv1" data-src="https://raw.githubusercontent.com/Redhabou/TV-Images/main/TV1.png" alt="TV 1">
-    <img id="tv2" data-src="https://raw.githubusercontent.com/Redhabou/TV-Images/main/TV2.png" alt="TV 2">
-    <img id="tv3" data-src="https://raw.githubusercontent.com/Redhabou/TV-Images/main/TV3.png" alt="TV 3">
+    <img id="tv1" data-src="https://raw.githubusercontent.com/Syncro547/IMG_TV/main/TV1.png">
+    <img id="tv2" data-src="https://raw.githubusercontent.com/Syncro547/IMG_TV/main/TV2.png">
+    <img id="tv3" data-src="https://raw.githubusercontent.com/Syncro547/IMG_TV/main/TV3.png">
   </div>
 
 </div>
@@ -92,7 +88,7 @@ function show(tv) {
   img.src = img.dataset.src + "?v=" + Date.now();
   img.style.display = "block";
 
-  document.querySelectorAll("#navbar button").forEach(btn => btn.classList.remove("active"));
+  document.querySelectorAll("#navbar button").forEach(b => b.classList.remove("active"));
   document.getElementById("btn-" + tv).classList.add("active");
 }
 
@@ -104,7 +100,7 @@ document.body.addEventListener("click", () => {
   document.documentElement.requestFullscreen?.();
 });
 
-// Refresh auto toutes les 5 min
+// Rafraîchissement automatique toutes les 5 minutes
 setInterval(() => {
   const active = document.querySelector("#navbar button.active");
   if (active) show(active.id.replace("btn-", ""));
