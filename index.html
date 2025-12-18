@@ -80,31 +80,31 @@ html, body {
 
 <script>
 function show(tv) {
-  document.querySelectorAll("#content img").forEach(img => img.style.display = "none");
+  // cacher toutes les images
+  document.querySelectorAll("#content img").forEach(img => {
+    img.style.display = "none";
+  });
 
   const img = document.getElementById(tv);
 
-  // Anti-cache GitHub CDN
-  img.src = img.dataset.src + "?v=" + Date.now();
+  // chargement uniquement lors de l'action utilisateur
+  if (!img.src) {
+    img.src = img.dataset.src;
+  }
+
   img.style.display = "block";
 
   document.querySelectorAll("#navbar button").forEach(b => b.classList.remove("active"));
   document.getElementById("btn-" + tv).classList.add("active");
 }
 
-// Image par défaut
+// Image affichée au démarrage
 show("tv1");
 
-// Plein écran Smart TV
+// Plein écran Smart TV (optionnel)
 document.body.addEventListener("click", () => {
   document.documentElement.requestFullscreen?.();
 });
-
-// Rafraîchissement automatique toutes les 5 minutes
-setInterval(() => {
-  const active = document.querySelector("#navbar button.active");
-  if (active) show(active.id.replace("btn-", ""));
-}, 5 * 60 * 1000);
 </script>
 
 </body>
