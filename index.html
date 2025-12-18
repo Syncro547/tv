@@ -87,24 +87,21 @@ function show(tv) {
 
   const img = document.getElementById(tv);
 
-  // chargement uniquement lors de l'action utilisateur
-  if (!img.src) {
+  // Chargement UNIQUE (verrouillé)
+  if (!img.dataset.loaded) {
     img.src = img.dataset.src;
+    img.dataset.loaded = "1";
   }
 
   img.style.display = "block";
 
+  // bouton actif
   document.querySelectorAll("#navbar button").forEach(b => b.classList.remove("active"));
   document.getElementById("btn-" + tv).classList.add("active");
 }
 
-// Image affichée au démarrage
+// image par défaut
 show("tv1");
-
-// Plein écran Smart TV (optionnel)
-document.body.addEventListener("click", () => {
-  document.documentElement.requestFullscreen?.();
-});
 </script>
 
 </body>
