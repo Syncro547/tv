@@ -5,7 +5,7 @@
 <title>TV Display</title>
 
 <style>
-/* VERROUILLAGE TOTAL ÉCRAN */
+/* VERROUILLAGE TOTAL */
 html, body {
   margin: 0;
   padding: 0;
@@ -15,8 +15,6 @@ html, body {
   font-family: Arial, sans-serif;
   overflow: hidden;
   position: fixed;
-  top: 0;
-  left: 0;
 }
 
 /* APP */
@@ -30,7 +28,6 @@ html, body {
 /* NAVBAR */
 #navbar {
   height: 50px;
-  min-height: 50px;
   background: #111;
   display: flex;
   justify-content: center;
@@ -52,10 +49,9 @@ html, body {
   background: #0078D4;
 }
 
-/* ZONE IMAGE (SOUS NAVBAR) */
+/* ZONE IMAGE */
 #content {
   flex: 1;
-  width: 100%;
   height: calc(100vh - 50px);
   background: white;
   overflow: hidden;
@@ -64,34 +60,35 @@ html, body {
   justify-content: center;
 }
 
-/* BASE IMAGE (NE PAS TOUCHER) */
+/* BASE IMAGE (QUALITÉ MAX, PAS DE CROP) */
 #content img {
-  max-width: 110%;
-  max-height: 110%;
+  max-width: 100%;
+  max-height: 100%;
   width: auto;
   height: auto;
-  object-fit: contain;
+  object-fit: contain;   /*  jamais rognée */
+  object-position: center;
   display: none;
   transform-origin: center;
 }
 
 /* ========================= */
-/* RÉGLAGES INDÉPENDANTS */
+/* AJUSTEMENTS PAR IMAGE */
 /* ========================= */
 
-/* TV 1 */
+/* TV 1 – léger ajustement */
 #tv1 {
-  transform: scale(1.08) translateY(-1.5%) translateX(0%);
+  transform: scale(1.08);
 }
 
-/* TV 2 */
+/* TV 2 – plein écran sans crop */
 #tv2 {
-  transform: scale(3) translateY(-1.5%) translateX(-1%);
+  transform: scale(1.18);
 }
 
-/* TV 3 */
+/* TV 3 – plein écran sans crop */
 #tv3 {
-  transform: scale(1.10) translateY(1%) translateX(1%);
+  transform: scale(1.18);
 }
 </style>
 </head>
@@ -116,14 +113,13 @@ html, body {
 
 <script>
 function show(tv) {
-  // cacher toutes les images
   document.querySelectorAll("#content img").forEach(img => {
     img.style.display = "none";
   });
 
   const img = document.getElementById(tv);
 
-  // CHARGEMENT UNIQUE (jamais rechargé)
+  // Chargement UNIQUE (pas de refresh réseau)
   if (!img.dataset.loaded) {
     img.src = img.dataset.src;
     img.dataset.loaded = "1";
@@ -131,7 +127,6 @@ function show(tv) {
 
   img.style.display = "block";
 
-  // bouton actif
   document.querySelectorAll("#navbar button").forEach(b => b.classList.remove("active"));
   document.getElementById("btn-" + tv).classList.add("active");
 }
@@ -139,7 +134,7 @@ function show(tv) {
 // image par défaut
 show("tv1");
 
-/* BLOCAGE TOTAL DU SCROLL */
+/* BLOCAGE SCROLL TOTAL */
 document.addEventListener("wheel", e => e.preventDefault(), { passive: false });
 document.addEventListener("touchmove", e => e.preventDefault(), { passive: false });
 document.addEventListener("keydown", e => {
@@ -151,4 +146,3 @@ document.addEventListener("keydown", e => {
 
 </body>
 </html>
-
