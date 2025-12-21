@@ -61,11 +61,13 @@ html, body {
 
 /* IMAGE OPTIMISÉE TV */
 #content img {
-  max-width: 105%;
-  max-height: 105%;
+  max-width: 110%;
+  max-height: 110%;
   width: auto;
   height: auto;
   object-fit: contain;
+  transform: scale(1.05);
+  transform-origin: center;
   display: none;
 }
 </style>
@@ -115,5 +117,6 @@ document.addEventListener("touchmove", e => e.preventDefault(), { passive: false
 
 </body>
 </html>
+
 
 
